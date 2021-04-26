@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>자막 검색기 – EGK Tools</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-120584460-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-120584460-1');
+    </script>
+
+    <style>
+        /* header */
+        .navbar-default {
+            background: transparent;
+            border: 0;
+        }
+
+        .navbar-default .navbar-brand {
+            color: white;
+            opacity: 0.5;
+        }
+
+        /* Name and search bar */
+        .jumbotron {
+            position: relative;
+            overflow: hidden;
+            color: #fff;
+            padding: 100px 25px;
+            background: black;
+        }
+
+        .jumbotron:before {
+            content: ' ';
+            display: block;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0.4;
+            background-image: url("https://i.imgur.com/qAFUWrO.jpg");
+            background-repeat: no-repeat;
+            background-position: 50% 0;
+            -ms-background-size: cover;
+            -o-background-size: cover;
+            -moz-background-size: cover;
+            -webkit-background-size: cover;
+            background-size: cover;
+        }
+
+        /* search result */
+        .gcsc-branding {
+            display: none !important;
+        }
+
+        .gsc-cursor-page {
+            font-size: 1.5em;
+            padding: 4px 8px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            background: lightgray;
+        }
+
+        .gsc-thumbnail {
+            float: right;
+        }
+
+        .gsc-result {
+            border-radius: 10px;
+            border: 1px solid #eaeaea !important;
+            margin-bottom: 17px !important;
+            padding: 15px !important;
+        }
+
+        .gsc-cursor-box {
+            margin-top: 55px !important;
+        }
+
+        .gcsc-more-maybe-branding-root {
+            display: none;
+        }
+
+        .gsc-adBlock {
+            border: 0 !important;
+        }
+
+        .gsc-above-wrapper-area {
+            display: none;
+        }
+
+        .gs-image {
+            border: 0 !important;
+        }
+
+        /* Container */
+        .container-fluid {
+            padding: 60px 50px;
+        }
+
+        /* Button */
+        @media screen and (max-width: 768px) {
+            .col-sm-4 {
+                text-align: center;
+                margin: 25px 0;
+            }
+
+            .btn-lg {
+                width: 100%;
+                margin-bottom: 35px;
+            }
+        }
+
+        /* footer */
+        #myFooter {
+            background-color: #3a3f46;
+            color: white;
+        }
+
+        #myFooter .row {
+            margin-bottom: 60px;
+        }
+
+        #myFooter .info {
+            text-align: justify;
+            color: #afb0b1;
+        }
+
+        #myFooter ul {
+            list-style-type: none;
+            padding-left: 0;
+            line-height: 1.7;
+        }
+
+        #myFooter h5 {
+            font-size: 18px;
+            color: white;
+            font-weight: bold;
+            margin-top: 30px;
+        }
+
+        #myFooter .logo {
+            margin-top: 10px;
+        }
+
+        #myFooter .second-bar .logo a {
+            color: white;
+            font-size: 28px;
+            float: left;
+            font-weight: bold;
+            line-height: 68px;
+            margin: 0;
+            padding: 0;
+        }
+
+        #myFooter a {
+            color: #d2d1d1;
+            text-decoration: none;
+        }
+
+        #myFooter a:hover,
+        #myFooter a:focus {
+            text-decoration: none;
+            color: white;
+        }
+
+        #myFooter .second-bar {
+            text-align: center;
+            background-color: #33373e;
+            text-align: center;
+        }
+
+        #myFooter .second-bar a {
+            font-size: 15px;
+            color: #9fa3a9;
+            padding: 10px;
+            transition: 0.2s;
+            line-height: 68px;
+        }
+
+        #myFooter .second-bar a:hover {
+            text-decoration: none;
+        }
+
+        #myFooter .social-icons {
+            float: right;
+        }
+
+
+        #myFooter .facebook:hover {
+            color: #0077e2;
+        }
+
+        #myFooter .google:hover {
+            color: #ef1a1a;
+        }
+
+        #myFooter .twitter:hover {
+            color: #00aced;
+        }
+
+        @media screen and (max-width: 767px) {
+            #myFooter {
+                text-align: center;
+            }
+
+            #myFooter .info {
+                text-align: center;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- Navbar, logo -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="https://egktools.herokuapp.com" target="_blank">EGK Tools</a>
+            </div>
+        </div>
+    </nav>
+    <!-- search engine section -->
+    <div class="jumbotron text-center" id="top">
+        <h1>자막 검색기</h1>
+        <p>Subtitle Search Engine</p>
+        <form action="//egktools.herokuapp.com/subtitle-search" class="form-inline">
+            <div class="input-group">
+                <input type="text" name="q" class="form-control" size="50" placeholder="영화, 드라마 제목" required>
+                <div class="input-group-btn">
+                    <button type="submit" class="btn btn-primary">검색</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- search result -->
+    <div class="container">
+        <script>
+            (function () {
+                var cx = '005589000039655950613:3_vjol4lnei';
+                var gcse = document.createElement('script');
+                gcse.type = 'text/javascript';
+                gcse.async = true;
+                gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(gcse, s);
+            })();
+        </script>
+        <gcse:searchresults-only></gcse:searchresults-only>
+    </div>
+
+    <!-- Container (Info Section) -->
+    <div class="container">
+        <div id="about" class="container-fluid">
+            <div class="row">
+                <div class="col-sm-8">
+                    <div>원하는 영상의 자막을 통합 검색하는 자막 검색엔진 입니다.</div><br>
+                    <div>영상의 제목을 구체적으로 검색할수록 정확성이 높아집니다.</div><br>
+                    <h2>예시</h2><br>
+                    <p>영상 이름: Friends(프렌즈)</p>
+                    <p>찾는자막: 한국어</p>
+                    <p>Friends korean 또는 프렌즈로 검색하세요</p>
+                    <br><a href="https://kgez.tistory.com" target="_blank"><button class="btn btn-default btn-lg">APK
+                            검색기</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="myFooter">
+        <div class="container">
+            <div class="row" style="margin-bottom: 56px;">
+            </div>
+        </div>
+        <div class="second-bar">
+            <div class="container">
+                <h2 class="logo"><a href="//egktools.herokuapp.com"> EGK Tools </a></h2>
+                <div class="social-icons">
+                    <a href="//egktools.herokuapp.com" target="_blank" class="twitter">egktools.herokuapp.com</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+
+</html>
